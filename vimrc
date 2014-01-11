@@ -8,7 +8,8 @@ set nocompatible
 set autoindent          
 set backspace=indent,eol,start
 " set leader
-let mapleader=','
+let mapleader = ","
+let maplocalleader = ","
 " line numbers on
 set number              
 set cindent
@@ -36,6 +37,14 @@ set go-=T
 
 " autocomplete commands
 set wildmenu
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
 set ruler
 set showcmd
 set laststatus=2
@@ -108,7 +117,9 @@ let g:ctrlp_max_files = 0
     let g:airline_symbols = {}
   endif
 
-let g:airline_theme=solarized dark
+let g:solarized_contrast = 'normal'
+let g:solarized_visibility = 'normal'
+let g:airline_theme = 'solarized'
 " unicode symbols
 " remove separators
 let g:airline_left_sep=''
@@ -123,15 +134,29 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " emmet Settings
-let g:user_emmet_settings = {
-  \  'php' : {
-  \    'extends' : 'html',
-  \    'filters' : 'c',
-  \  },
-  \  'xml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'haml' : {
-  \    'extends' : 'html',
-  \  },
-}
+" let g:user_emmet_settings = {
+"   \  'php' : {
+"   \    'extends' : 'html',
+"   \    'filters' : 'c',
+"   \  },
+"   \  'xml' : {
+"   \    'extends' : 'html',
+"   \  },
+"   \  'haml' : {
+"   \    'extends' : 'html',
+"   \  },
+" }
+
+" Drupal Settings
+if has("autocmd")
+  " Drupal *.module and *.install files.
+  augroup module
+    autocmd BufRead,BufNewFile *.module set filetype=php
+    autocmd BufRead,BufNewFile *.install set filetype=php
+    autocmd BufRead,BufNewFile *.test set filetype=php
+    autocmd BufRead,BufNewFile *.inc set filetype=php
+    autocmd BufRead,BufNewFile *.profile set filetype=php
+    autocmd BufRead,BufNewFile *.view set filetype=php
+  augroup END
+endif
+syntax on
