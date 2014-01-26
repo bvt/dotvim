@@ -7,10 +7,16 @@ Create symlinks:
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
 
+    cd ~/.vim
+    git submodule init
+    git submodule update
+
 Pathogen:
 
-cd ~/.vim/bundle
-git clone git://github.com/tpope/vim-sensible.git
+cd ~/.vim
+git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
+git add .
+git commit -m "Install Fugitive.vim bundle as a submodule."
 
 Quit vim restart and type
 :Helptags
