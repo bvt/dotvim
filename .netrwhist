@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Library/WebServer/Documents/drupal-7.12'
-let g:netrw_dirhist_2='/Library/WebServer/Documents/drupal-7.12/themes'
-let g:netrw_dirhist_3='/Library/WebServer/Documents/drupal-7.12/themes/stark'
-let g:netrw_dirhist_4='/Library/WebServer/Documents/drupal-7.12/themes'
-let g:netrw_dirhist_5='/Library/WebServer/Documents/drupal-7.12'
-let g:netrw_dirhist_6='/Library/WebServer/Documents/drupal-7.12/modules'
-let g:netrw_dirhist_7='/Library/WebServer/Documents/drupal-7.12/modules/book'
