@@ -272,6 +272,15 @@ nnoremap <leader><space> :noh<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntastic syntax checking
+" syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+
+" matchit
+" % to bounce from do to end etc.
+runtime! macros/matchit.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
