@@ -110,7 +110,7 @@ set showcmd
 
 "Start scrolling when we're 8 lines away from margins
 
-set scrolloff=8         
+set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
 
@@ -152,7 +152,7 @@ set nowb
 set noswapfile
 
 " Set to auto read when a file is changed from the outside
-set autoread 
+set autoread
 
 " ctrlp Settings
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -161,7 +161,7 @@ let g:ctrlp_custom_ignore = {
             \ 'dir': '\.git$\|\.sass-cache$\|\.hg$\|\.svn$',
             \ 'file': '\.exe$\|\.so|\.DS_Store$'
             \ }
- 
+
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
 " Set 10000 max file limit
@@ -214,10 +214,10 @@ set si 		"Smart indent
 set nowrap
 
 "Break lines when appropriate
-set linebreak               
+set linebreak
 
-" Enable code folding  
-set foldenable  
+" Enable code folding
+set foldenable
 
 " Code folding options
 nmap <leader>f0 :set foldlevel=0<CR>
@@ -388,7 +388,7 @@ nnoremap <leader><space> :noh<cr>
 " syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 
 " matchit
 " % to bounce from do to end etc.
