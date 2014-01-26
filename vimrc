@@ -366,9 +366,6 @@ autocmd BufWrite *.js :call DeleteTrailingWS()
 let g:user_emmet_leader_key='<C-Y>'
 let user_emmet_expandabbr_key = '<C-Y>'
 
-nnoremap <leader>t= :Tabularize /=<CR>
-nnoremap <leader>t: :Tabularize /:<CR>
-
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
 
