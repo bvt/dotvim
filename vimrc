@@ -369,6 +369,8 @@ let user_emmet_expandabbr_key = '<C-Y>'
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
 
+map <leader>g :call Stringify()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimgrep searching and cope displaying
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
