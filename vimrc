@@ -246,6 +246,11 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
+" omnicomplete
+set omnifunc=syntaxcomplete#Complete
+autocmd BufNewFile,BufRead *.scss             
+set ft=scss.css
+
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
