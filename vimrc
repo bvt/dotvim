@@ -188,6 +188,13 @@ if has("autocmd")
   augroup END
 endif
 
+" SQL syntax highlighting inside Strings
+let php_sql_query = 1
+" HTML syntax highlighting inside strings
+let php_htmlInStrings = 1
+" Enable folding for classes and functions
+let php_folding = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -248,8 +255,9 @@ endif
 
 " omnicomplete
 set omnifunc=syntaxcomplete#Complete
-autocmd BufNewFile,BufRead *.scss             
-set ft=scss.css
+autocmd BufNewFile,BufRead *.scss set ft=scss.css
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
