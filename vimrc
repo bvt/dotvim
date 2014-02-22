@@ -192,8 +192,7 @@ endif
 let php_sql_query = 1
 " HTML syntax highlighting inside strings
 let php_htmlInStrings = 1
-" Enable folding for classes and functions
-let php_folding = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -258,6 +257,8 @@ set omnifunc=syntaxcomplete#Complete
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+" add vim OmmiComplete to SuperTab
+let g:SuperTabDefaultCompletionType = "context"
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
