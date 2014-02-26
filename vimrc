@@ -405,7 +405,8 @@ nnoremap <leader><space> :noh<cr>
 " syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_quiet_messages = {'level': 'errors'}
+let g:syntastic_enable_balloons = 1
 
 " matchit
 " % to bounce from do to end etc.
