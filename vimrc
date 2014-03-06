@@ -261,6 +261,8 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 " add vim OmmiComplete to SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 
+" let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
