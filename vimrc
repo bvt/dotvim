@@ -1,3 +1,5 @@
+" vim:fdm=marker
+"
 " Sections:
 "    -> General
 "    -> VIM user interface
@@ -12,8 +14,8 @@
 "    -> Misc
 "    -> Helper functions
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+"
+" => General {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " call pathogen
 execute pathogen#infect()
@@ -34,16 +36,22 @@ set nocompatible
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
+" }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+" VIM user interface 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Turn on the WiLd menu
+" Wild menu {{{
+" Turn on the Wild menu
 set wildmenu
 "Complete longest string, then list alternatives
 set wildmode=list:longest,list:full
@@ -57,7 +65,9 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.svn,*.git
+" }}}
 
+" Set Stuff {{{
 "Always show current position
 set ruler
 
@@ -128,8 +138,14 @@ set cul
 " adjust color
 hi CursorLine term=none cterm=none ctermbg=3
 
+nnoremap <silent> <F9> :TagbarToggle<CR>
+" }}}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Colors and Fonts {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
@@ -143,9 +159,9 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
+" Files, backups and undo {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -154,9 +170,30 @@ set noswapfile
 
 " Set to auto read when a file is changed from the outside
 set autoread
+" }}}
 
-" ctrlp Settings
+" ctrlp Settings {{{
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+if executable('ag')
+" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
+
+" ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+else
+" Fall back to using git ls-files if Ag is not available
+  let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
+endif
+
+" Default to filename searches
+let g:ctrlp_by_filename = 1
+
+" Don't jump to already open window. This is annoying if you are maintaining
+" several Tab workspaces and want to open two windows into the same file.
+let g:ctrlp_switch_buffer = 0
+
 " CtrlP ignore patterns
 let g:ctrlp_custom_ignore = {
             \ 'dir': '\.git$\|\.sass-cache$\|\.hg$\|\.svn$',
@@ -172,8 +209,9 @@ let g:ctrlp_max_depth = 20
 " Map execution of ctrlp to ctrl-p
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+" }}}
 
-" Drupal Settings
+" Drupal Settings {{{
 if has("autocmd")
   " Drupal *.module and *.install files.
   augroup module
@@ -188,15 +226,14 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typoscript
   augroup END
 endif
+" }}}
 
 " SQL syntax highlighting inside Strings
 let php_sql_query = 1
 " HTML syntax highlighting inside strings
 let php_htmlInStrings = 1
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" Text, tab and indent related {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -223,21 +260,6 @@ set nowrap
 "Break lines when appropriate
 set linebreak
 
-" Enable code folding
-set foldenable
-
-" Code folding options
-nmap <leader>f0 :set foldlevel=0<CR>
-nmap <leader>f1 :set foldlevel=1<CR>
-nmap <leader>f2 :set foldlevel=2<CR>
-nmap <leader>f3 :set foldlevel=3<CR>
-nmap <leader>f4 :set foldlevel=4<CR>
-nmap <leader>f5 :set foldlevel=5<CR>
-nmap <leader>f6 :set foldlevel=6<CR>
-nmap <leader>f7 :set foldlevel=7<CR>
-nmap <leader>f8 :set foldlevel=8<CR>
-nmap <leader>f9 :set foldlevel=9<CR>
-
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
   " Enable file type detection
@@ -253,18 +275,51 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
-" omnicomplete
+" }}}
+
+" Enable code folding {{{
+set foldenable
+
+" Code folding options
+nmap <leader>f0 :set foldlevel=0<CR>
+nmap <leader>f1 :set foldlevel=1<CR>
+nmap <leader>f2 :set foldlevel=2<CR>
+nmap <leader>f3 :set foldlevel=3<CR>
+nmap <leader>f4 :set foldlevel=4<CR>
+nmap <leader>f5 :set foldlevel=5<CR>
+nmap <leader>f6 :set foldlevel=6<CR>
+nmap <leader>f7 :set foldlevel=7<CR>
+nmap <leader>f8 :set foldlevel=8<CR>
+nmap <leader>f9 :set foldlevel=9<CR>
+
+inoremap <F1> <C-O>za
+nnoremap <F1> za
+onoremap <F1> <C-C>za
+vnoremap <F1> zf
+
+" }}}
+
+" omnicomplete {{{
 set omnifunc=syntaxcomplete#Complete
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+if has('python3')
+  autocmd FileType python setlocal omnifunc=python3complete#Complete
+else
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+endif
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType python setlocal foldmethod=indent
 " add vim OmmiComplete to SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 
 " let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+" }}}
 
-""""""""""""""""""""""""""""""
-" => Visual mode related
+" => Visual mode related {{{
 """"""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -280,10 +335,9 @@ vmap <C-Down> xp`[V`]
 
 " To select the last changed text (or the text that was just pasted)
 nnoremap gp `[v`]
+" }}}
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" Moving around, tabs, windows and buffers {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easier window navigation
 nmap <C-h> <C-w>h
@@ -313,9 +367,9 @@ autocmd BufReadPost *
 set viminfo^=%
 
 let g:EasyMotion_leader_key = '<Space>'
+" }}}
 
-""""""""""""""""""""""""""""""
-" => Status line
+" => Status line {{{
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
@@ -359,9 +413,9 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
+" => Editing mappings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove trailing whitespaces and ^M chars
 autocmd FileType php,js,python,twig,xml,yml,css,scss autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
@@ -390,18 +444,18 @@ let user_emmet_expandabbr_key = '<C-Y>'
 vmap <Enter>   <Plug>(EasyAlign)
 
 map <leader>g :call Stringify()<CR>
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimgrep searching and cope displaying
+" => vimgrep searching and cope displaying {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " applies substitutions globally on lines. Instead of :%s/foo/bar/g just type :%s/foo/bar/
 set gdefault
 
 " clear out search hightlights
 nnoremap <leader><space> :noh<cr>
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
+" Syntastic {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntastic syntax checking
 " syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
@@ -409,16 +463,22 @@ let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'errors'}
 let g:syntastic_enable_balloons = 1
+"automatically jump to the error when saving the file
+let g:syntastic_auto_jump=0
+"show the error list automatically
+let g:syntastic_auto_loc_list=0
+" }}}
 
+" => Misc {{{
 " matchit
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
 
 " edit my vimrc
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
+" => Helper functions {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -443,3 +503,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+" }}}
