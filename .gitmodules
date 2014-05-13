@@ -82,3 +82,6 @@
 [submodule "bundle/csscomb"]
 	path = bundle/csscomb
 	url = https://github.com/miripiruni/CSScomb-for-Vim.git
+[submodule "bundle/characterize"]
+	path = bundle/characterize
+	url = https://github.com/tpope/vim-characterize.git
