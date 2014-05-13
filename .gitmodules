@@ -82,6 +82,8 @@
 [submodule "bundle/csscomb"]
 	path = bundle/csscomb
 	url = https://github.com/miripiruni/CSScomb-for-Vim.git
+    ignore = dirty
 [submodule "bundle/characterize"]
 	path = bundle/characterize
-	url = https://github.com/tpope/vim-characterize.git
+    url = https://github.com/tpope/vim-characterize.git
+    ignore = dirty
