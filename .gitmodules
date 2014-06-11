@@ -87,3 +87,6 @@
 	path = bundle/characterize
     url = https://github.com/tpope/vim-characterize.git
     ignore = dirty
+[submodule "bundle/vim-polyglot"]
+	path = bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
