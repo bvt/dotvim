@@ -302,7 +302,7 @@ vnoremap <F1> zf
 " omnicomplete {{{
 set omnifunc=syntaxcomplete#Complete
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css,sass setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -460,19 +460,21 @@ nnoremap <leader><space> :noh<cr>
 " On by default, turn it off for html
 let g:syntastic_mode_map = { 'mode': 'active',
 	\ 'active_filetypes': [],
-	\ 'passive_filetypes': ['html'] }
+	\ 'passive_filetypes': [] }
 " syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {'level': 'errors'}
+let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_enable_balloons = 1
 "automatically jump to the error when saving the file
 let g:syntastic_auto_jump=1
 "show the error list automatically
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=0
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_scss_checkers = ['scss-lint']
 
 " }}}
 
