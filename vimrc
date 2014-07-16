@@ -437,8 +437,7 @@ autocmd BufWrite *.php :call DeleteTrailingWS()
 autocmd BufWrite *.module :call DeleteTrailingWS()
 autocmd BufWrite *.js :call DeleteTrailingWS()
 
-let g:user_emmet_leader_key='<C-Y>'
-let user_emmet_expandabbr_key = '<C-Y>'
+let g:user_emmet_leader_key='<c-y>'
 
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
@@ -458,15 +457,23 @@ nnoremap <leader><space> :noh<cr>
 " Syntastic {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntastic syntax checking
+" On by default, turn it off for html
+let g:syntastic_mode_map = { 'mode': 'active',
+	\ 'active_filetypes': [],
+	\ 'passive_filetypes': ['html'] }
 " syntastic will do syntax checks when buffers are first loaded as well as on saving, default 0
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'errors'}
 let g:syntastic_enable_balloons = 1
 "automatically jump to the error when saving the file
-let g:syntastic_auto_jump=0
+let g:syntastic_auto_jump=1
 "show the error list automatically
-let g:syntastic_auto_loc_list=0
+let g:syntastic_auto_loc_list=1
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+
 " }}}
 
 " => Misc {{{
