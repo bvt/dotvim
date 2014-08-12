@@ -115,3 +115,6 @@
 	path = bundle/vim-indent-guides
     url = https://github.com/nathanaelkane/vim-indent-guides
     ignore = dirty
+[submodule "bundle/clickable"]
+	path = bundle/clickable
+	url = https://github.com/Rykka/clickable.vim

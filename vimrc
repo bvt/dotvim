@@ -40,6 +40,13 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
+set ttyfast
+" Mouse Stuff
+set mousemodel = extend " Enable mouse support
+set selectmode = mouse
+set mousefocus
+set mouse = a
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
@@ -467,7 +474,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_enable_balloons = 1
 "automatically jump to the error when saving the file
-let g:syntastic_auto_jump=1
+let g:syntastic_auto_jump=0
 "show the error list automatically
 let g:syntastic_auto_loc_list=0
 " Better :sign interface symbols
