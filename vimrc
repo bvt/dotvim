@@ -14,7 +14,6 @@
 "    -> Misc
 "    -> Helper functions
 "
-"
 " => General {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " call pathogen
@@ -26,26 +25,18 @@ filetype plugin on
 filetype indent on
 
 " set leader
-let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = ","
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 " Forget compatibility with Vi. Who cares.
 set nocompatible
 
 " Fast saving
 nmap <leader>w :w!<cr>
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+nmap <leader>q :q<cr>
 
 set ttyfast
-" Mouse Stuff
-set mousemodel = extend " Enable mouse support
-set selectmode = mouse
-set mousefocus
-set mouse = a
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -138,6 +129,8 @@ set showmode
 " Use modeline overrides
 set modeline
 set modelines=10
+
+set mousemodel=popup
 
 " highlight current line
 set cul
@@ -347,16 +340,19 @@ nnoremap gp `[v`]
 " Moving around, tabs, windows and buffers {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easier window navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+nmap <leader><left> <C-w>h
+nmap <leader><down> <C-w>j
+nmap <leader><up> <C-w>k
+nmap <leader><right> <C-w>l
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+
+vmap <leader>f zf
+map <leader>a za
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -373,7 +369,7 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
-let g:EasyMotion_leader_key = '<Space>'
+let g:EasyMotion_leader_key = ','
 " }}}
 
 " => Status line {{{
@@ -424,6 +420,12 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 " => Editing mappings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Split
+noremap <Leader>h :split<CR>
+noremap <Leader>v :vsplit<CR>
+"" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 " Remove trailing whitespaces and ^M chars
 autocmd FileType php,js,python,twig,xml,yml,css,scss autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
@@ -445,6 +447,11 @@ autocmd BufWrite *.module :call DeleteTrailingWS()
 autocmd BufWrite *.js :call DeleteTrailingWS()
 
 let g:user_emmet_leader_key='<c-y>'
+" use both <Tab> and <C-Y> to trigger the emmet.
+let g:user_emmet_expandabbr_key = '<Leader>.'
+let g:user_emmet_next_key = '<Leader>-'
+let g:user_emmet_prev_key = '<Leader>,'
+let g:user_emmet_togglecomment_key = '<Leader>/'
 
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
@@ -452,7 +459,7 @@ vmap <Enter>   <Plug>(EasyAlign)
 map <leader>g :call Stringify()<CR>
 " }}}
 
-" => vimgrep searching and cope displaying {{{
+" => vimgrep searching and code displaying {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " applies substitutions globally on lines. Instead of :%s/foo/bar/g just type :%s/foo/bar/
 set gdefault
