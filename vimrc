@@ -159,6 +159,13 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" rainbow_parentheses.vim
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " }}}
 
 " Files, backups and undo {{{
@@ -211,7 +218,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 " }}}
 
-" Drupal Settings {{{
+" Filetype Settings {{{
 if has("autocmd")
   " Drupal *.module and *.install files.
   augroup module
@@ -226,6 +233,9 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typoscript
   augroup END
 endif
+
+au BufNewFile,BufRead *.ts setlocal filetype=typoscript 
+
 " }}}
 
 " SQL syntax highlighting inside Strings
@@ -449,9 +459,6 @@ autocmd BufWrite *.js :call DeleteTrailingWS()
 let g:user_emmet_leader_key='<c-y>'
 " use both <Tab> and <C-Y> to trigger the emmet.
 let g:user_emmet_expandabbr_key = '<Leader>.'
-let g:user_emmet_next_key = '<Leader>-'
-let g:user_emmet_prev_key = '<Leader>,'
-let g:user_emmet_togglecomment_key = '<Leader>/'
 
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
@@ -488,7 +495,7 @@ let g:syntastic_auto_loc_list=0
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_scss_checkers = ['scss-lint']
+let g:syntastic_scss_checkers=['sass', 'scss-lint']
 
 " }}}
 
