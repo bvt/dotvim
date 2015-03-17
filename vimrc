@@ -25,7 +25,7 @@ filetype plugin on
 filetype indent on
 
 " set leader
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
 let g:mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
@@ -42,6 +42,9 @@ set ttyfast
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
+
+" set clipboard=unnamed
+
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,9 +106,8 @@ set matchtime=3
 set mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 set tm=500
 
 " Hide MacVim toolbar by default
@@ -154,7 +156,6 @@ syntax enable
 set background=dark
 colorscheme solarized
 
-
 " set up some custom colors
 highlight clear SignColumn
 highlight VertSplit ctermbg=236
@@ -171,6 +172,12 @@ highlight Pmenu ctermbg=240 ctermfg=12
 highlight PmenuSel ctermbg=3 ctermfg=1
 highlight SpellBad ctermbg=0 ctermfg=1
 
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine guibg=#303000 ctermbg=234
+
 " highlight the status bar when in insert mode
 if version >= 700
     au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
@@ -179,6 +186,7 @@ endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
+scriptencoding utf-8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -354,20 +362,12 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " => Visual mode related {{{
 """"""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
-" Bubble single lines
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
-" Bubble multiple lines
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " To select the last changed text (or the text that was just pasted)
-nnoremap gp `[v`]
+" nnoremap gp `[v`]
 " }}}
 
 " Moving around, tabs, windows and buffers {{{
@@ -454,10 +454,15 @@ let g:airline_symbols.whitespace = 'Ξ'
 " => Editing mappings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Split
-noremap <Leader>h :split<CR>
-noremap <Leader>v :vsplit<CR>
+set splitbelow
+set splitright
+noremap <Leader>h :split e<CR>
+noremap <Leader>v :vsplit e<CR>
 "" Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" go substitute because the default map for sleeping is silly
+nnoremap gs :%s///g<Left><Left>
 
 " Remove trailing whitespaces and ^M chars
 autocmd FileType php,js,python,twig,xml,yml,css,scss autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
@@ -481,12 +486,12 @@ autocmd BufWrite *.js :call DeleteTrailingWS()
 
 let g:user_emmet_leader_key='<c-y>'
 " use both <Tab> and <C-Y> to trigger the emmet.
-let g:user_emmet_expandabbr_key = '<Leader>.'
-
+let g:user_emmet_expandabbr_key = '<Leader>.' 
+ 
 " For visual mode (e.g. vip<Enter>=)
 vmap <Enter>   <Plug>(EasyAlign)
 
-map <leader>g :call Stringify()<CR>
+" map <leader>g :call Stringify()<CR>
 " }}}
 
 " => vimgrep searching and code displaying {{{
@@ -496,6 +501,22 @@ set gdefault
 
 " clear out search hightlights
 nnoremap <leader><space> :noh<cr>
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+" n and N directions are always forward and backward respectively even after performing <Plug>(incsearch-backward).
+let g:incsearch#consistent_n_direction = 1
+
 " }}}
 
 " Syntastic {{{
@@ -518,7 +539,7 @@ let g:syntastic_auto_loc_list=0
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_scss_checkers=['sass', 'scss-lint']
+let g:syntastic_scss_checkers = ['scss_lint']
 
 " }}}
 
@@ -529,6 +550,7 @@ runtime! macros/matchit.vim
 
 " edit my vimrc
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
 " }}}
 
 " => Helper functions {{{
