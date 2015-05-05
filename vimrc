@@ -153,8 +153,9 @@ nnoremap <silent> <F9> :TagbarToggle<CR>
 syntax enable
 
 " Color Settings
+set t_Co=256
 set background=dark
-colorscheme solarized
+colorscheme primary
 
 " set up some custom colors
 highlight clear SignColumn
