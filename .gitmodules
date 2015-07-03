@@ -111,9 +111,6 @@
 	path = bundle/vim-indent-guides
     url = https://github.com/nathanaelkane/vim-indent-guides
     ignore = dirty
-[submodule "bundle/clickable"]
-	path = bundle/clickable
-	url = https://github.com/Rykka/clickable.vim
 [submodule "bundle/rainbow_parentheses"]
 	path = bundle/rainbow_parentheses
 	url = https://github.com/kien/rainbow_parentheses.vim
@@ -132,3 +129,6 @@
 [submodule "bundle/vison"]
 	path = bundle/vison
 	url = https://github.com/Quramy/vison
+[submodule "bundle/papercolor-theme"]
+	path = bundle/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme
