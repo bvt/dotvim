@@ -25,9 +25,9 @@ filetype plugin on
 filetype indent on
 
 " set leader
-" let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
+" let mapleader = ","
+let g:mapleader = ","
+let maplocalleader = ","
 
 " Forget compatibility with Vi. Who cares.
 set nocompatible
@@ -143,19 +143,17 @@ hi CursorLine term=none cterm=none ctermbg=3
 nnoremap <silent> <F9> :TagbarToggle<CR>
 " }}}
 
+" Colors and Fonts {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Colors and Fonts {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
 
 " Color Settings
 set t_Co=256
-set background=dark
-colorscheme primary
+set background=light
+colorscheme PaperColor
 
 " set up some custom colors
 highlight clear SignColumn
@@ -163,7 +161,7 @@ highlight VertSplit ctermbg=236
 highlight ColorColumn ctermbg=237
 highlight LineNr ctermbg=236 ctermfg=240
 highlight CursorLineNr ctermbg=236 ctermfg=240
-highlight CursorLine ctermbg=236
+highlight CursorLine cterm=NONE ctermbg=grey ctermfg=grey guibg=grey guifg=black
 highlight StatusLineNC ctermbg=238 ctermfg=0
 highlight StatusLine ctermbg=240 ctermfg=12
 highlight IncSearch ctermbg=3 ctermfg=1
@@ -174,10 +172,14 @@ highlight PmenuSel ctermbg=3 ctermfg=1
 highlight SpellBad ctermbg=0 ctermfg=1
 
 set cursorline
-hi cursorline cterm=none term=none
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-highlight CursorLine guibg=#303000 ctermbg=234
+highlight CursorLine guibg=#cccccc ctermbg=grey
+
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
+
 
 " highlight the status bar when in insert mode
 if version >= 700
@@ -403,7 +405,6 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
-let g:EasyMotion_leader_key = ','
 " }}}
 
 " => Status line {{{
@@ -489,8 +490,10 @@ let g:user_emmet_leader_key='<c-y>'
 " use both <Tab> and <C-Y> to trigger the emmet.
 let g:user_emmet_expandabbr_key = '<Leader>.' 
  
-" For visual mode (e.g. vip<Enter>=)
-vmap <Enter>   <Plug>(EasyAlign)
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " map <leader>g :call Stringify()<CR>
 " }}}
